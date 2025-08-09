@@ -24,7 +24,7 @@
     "convex": "^1.25.4",
     "@node-rs/argon2": "^1.8.0",
     "@node-rs/bcrypt": "^1.10.0",
-    "openai": "^4.20.0",
+    "openai": "^5.12.2",
     "zod": "^3.22.0",
     "date-fns": "^3.0.0",
     "nanoid": "^5.0.0",
