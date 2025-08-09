@@ -1,0 +1,51 @@
+name: Turborepo Cache
+
+on:
+  workflow_call:
+    inputs:
+      cache-key:
+        required: true
+        type: string
+      restore-keys:
+        required: false
+        type: string
+        default: ''
+
+jobs:
+  cache:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cache Turborepo
+        uses: actions/cache@v4
+        with:
+          path: |
+            .turbo
+            node_modules/.cache/turbo
+            apps/*/node_modules/.cache/turbo
+            packages/*/node_modules/.cache/turbo
+          key: ${{ inputs.cache-key }}-${{ hashFiles('**/bun.lockb', '**/turbo.json') }}
+          restore-keys: |
+            ${{ inputs.cache-key }}-
+            ${{ inputs.restore-keys }}
+
+      - name: Cache Bun dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.bun/install/cache
+            node_modules
+            apps/*/node_modules
+            packages/*/node_modules
+          key: bun-${{ runner.os }}-${{ hashFiles('**/bun.lockb') }}
+          restore-keys: |
+            bun-${{ runner.os }}-
+
+      - name: Cache Next.js
+        uses: actions/cache@v4
+        with:
+          path: |
+            apps/frontend/.next/cache
+          key: nextjs-${{ runner.os }}-${{ hashFiles('**/bun.lockb') }}-${{ hashFiles('apps/frontend/**/*.js', 'apps/frontend/**/*.jsx', 'apps/frontend/**/*.ts', 'apps/frontend/**/*.tsx') }}
+          restore-keys: |
+            nextjs-${{ runner.os }}-${{ hashFiles('**/bun.lockb') }}-
+            nextjs-${{ runner.os }}-

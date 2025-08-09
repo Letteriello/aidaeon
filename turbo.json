@@ -1,0 +1,93 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": [
+    "**/.env.*local",
+    ".env",
+    "turbo.json",
+    "tsconfig.json",
+    "tailwind.config.*"
+  ],
+  "globalEnv": [
+    "NODE_ENV",
+    "CONVEX_DEPLOYMENT",
+    "CONVEX_URL",
+    "NEXT_TELEMETRY_DISABLED"
+  ],
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build", "type-check"],
+      "outputs": [
+        ".next/**",
+        "!.next/cache/**",
+        "dist/**",
+        "build/**",
+        "out/**"
+      ],
+      "env": [
+        "NODE_ENV",
+        "CONVEX_DEPLOYMENT",
+        "CONVEX_URL",
+        "NEXT_TELEMETRY_DISABLED"
+      ]
+    },
+    "lint": {
+      "dependsOn": ["^lint"],
+      "outputs": [],
+      "cache": true
+    },
+    "lint:fix": {
+      "dependsOn": ["^lint:fix"],
+      "outputs": [],
+      "cache": false
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true,
+      "env": [
+        "NODE_ENV",
+        "CONVEX_DEPLOYMENT",
+        "CONVEX_URL"
+      ]
+    },
+    "test": {
+      "dependsOn": ["^build"],
+      "outputs": [
+        "coverage/**"
+      ],
+      "inputs": [
+        "src/**/*.{ts,tsx,js,jsx}",
+        "test/**/*.{ts,tsx,js,jsx}",
+        "**/*.test.{ts,tsx,js,jsx}",
+        "**/*.spec.{ts,tsx,js,jsx}"
+      ]
+    },
+    "test:watch": {
+      "cache": false,
+      "persistent": true
+    },
+    "type-check": {
+      "dependsOn": ["^type-check"],
+      "outputs": [],
+      "inputs": [
+        "src/**/*.{ts,tsx}",
+        "**/*.d.ts",
+        "tsconfig.json"
+      ]
+    },
+    "clean": {
+      "cache": false,
+      "outputs": []
+    },
+    "format": {
+      "outputs": [],
+      "cache": false
+    },
+    "format:check": {
+      "outputs": [],
+      "cache": true
+    }
+  },
+  "remoteCache": {
+    "signature": true
+  }
+}

@@ -1,0 +1,136 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+out/
+.next/
+.turbo/
+
+# Cache directories
+.cache/
+.eslintcache
+.stylelintcache
+
+# Coverage reports
+coverage/
+
+# Environment files
+.env*
+!.env.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+bun-debug.log*
+bun-error.log*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Temporary folders
+tmp/
+temp/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Package manager files
+package-lock.json
+yarn.lock
+bun.lockb
+
+# Generated files
+*.d.ts.map
+*.js.map
+*.css.map
+
+# Docker files
+Dockerfile*
+docker-compose*.yml
+
+# CI/CD files
+.github/
+.gitlab-ci.yml
+.travis.yml
+.circleci/
+
+# Documentation
+README.md
+CHANGELOG.md
+LICENSE
+
+# Configuration files that should maintain their formatting
+*.config.js
+*.config.ts
+*.config.mjs
+*.config.cjs
+tsconfig.json
+tsconfig.*.json
+jest.config.*
+vitest.config.*
+tailwind.config.*
+postcss.config.*
+next.config.*
+vite.config.*
+rollup.config.*
+webpack.config.*
+babel.config.*
+.eslintrc.*
+.prettierrc.*
+
+# Specific project files
+convex/_generated/
+convex/schema.ts
+
+# Static assets
+public/
+static/
+assets/
+
+# Markdown files in docs (preserve formatting)
+docs/**/*.md
+
+# Generated API documentation
+api-docs/
+
+# Storybook
+storybook-static/
+.storybook/
+
+# Playwright
+test-results/
+playwright-report/
+playwright/.cache/
+
+# Turborepo
+.turbo/
+
+# Vercel
+.vercel/
+
+# Netlify
+.netlify/
+
+# Local development
+.local/

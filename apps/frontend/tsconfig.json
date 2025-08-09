@@ -1,0 +1,52 @@
+{
+  "extends": "../../packages/typescript-config/nextjs.json",
+  "compilerOptions": {
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "@/components/*": [
+        "./src/components/*"
+      ],
+      "@/lib/*": [
+        "./src/lib/*"
+      ],
+      "@/hooks/*": [
+        "./src/hooks/*"
+      ],
+      "@/types/*": [
+        "./src/types/*"
+      ],
+      "@/app/*": [
+        "./src/app/*"
+      ],
+      "@/convex/*": [
+        "./convex/*"
+      ],
+      "@repo/typescript-config/*": [
+        "./packages/typescript-config/*"
+      ],
+      "@repo/ui/*": [
+        "../../packages/ui/*"
+      ]
+    },
+    "jsx": "preserve",
+    "allowImportingTsExtensions": true
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "convex/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
