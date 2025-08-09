@@ -64,7 +64,7 @@ const TooltipContent = React.forwardRef<
 TooltipContent.displayName = TooltipPrimitive.Content.displayName;
 
 // Componente Tooltip simplificado
-export interface TooltipProps {
+export interface SimpleTooltipProps {
   children: React.ReactNode;
   content: React.ReactNode;
   side?: "top" | "right" | "bottom" | "left";
@@ -88,7 +88,7 @@ const Tooltip = ({
   arrow = true,
   disabled = false,
   className,
-}: TooltipProps) => {
+}: SimpleTooltipProps) => {
   if (disabled) {
     return <>{children}</>;
   }
@@ -115,7 +115,7 @@ const Tooltip = ({
 };
 
 // Tooltip com ícone
-export interface IconTooltipProps extends Omit<TooltipProps, 'children'> {
+export interface IconTooltipProps extends Omit<SimpleTooltipProps, 'children'> {
   icon: React.ReactNode;
   iconClassName?: string;
 }
@@ -136,7 +136,7 @@ const IconTooltip = ({
 };
 
 // Tooltip para botões
-export interface ButtonTooltipProps extends Omit<TooltipProps, 'children'> {
+export interface ButtonTooltipProps extends Omit<SimpleTooltipProps, 'children'> {
   children: React.ReactNode;
   showOnDisabled?: boolean;
 }
@@ -158,7 +158,7 @@ const ButtonTooltip = ({
 };
 
 // Tooltip com delay customizado para hover
-export interface HoverTooltipProps extends TooltipProps {
+export interface HoverTooltipProps extends SimpleTooltipProps {
   openDelay?: number;
   closeDelay?: number;
 }
@@ -205,7 +205,7 @@ export function useTooltip() {
 }
 
 // Tooltip controlado
-export interface ControlledTooltipProps extends Omit<TooltipProps, 'delayDuration'> {
+export interface ControlledTooltipProps extends Omit<SimpleTooltipProps, 'delayDuration'> {
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
 }
@@ -219,7 +219,7 @@ const ControlledTooltip = ({
 }: ControlledTooltipProps) => {
   return (
     <TooltipProvider>
-      <TooltipRoot open={open} onOpenChange={onOpenChange}>
+      <TooltipRoot open={open ?? false} onOpenChange={onOpenChange ?? (() => {})}>
         <TooltipTrigger asChild>
           {children}
         </TooltipTrigger>

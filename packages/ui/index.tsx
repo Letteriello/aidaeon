@@ -182,7 +182,7 @@ export {
   tooltipVariants,
 } from "./src/components/tooltip";
 export type {
-  TooltipProps,
+  SimpleTooltipProps as TooltipProps,
   IconTooltipProps,
   ButtonTooltipProps,
   HoverTooltipProps,
