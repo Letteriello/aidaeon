@@ -36,7 +36,7 @@ const inputVariants = cva(
 );
 
 export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement>,
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size">,
     VariantProps<typeof inputVariants> {
   label?: string;
   description?: string;
@@ -291,7 +291,8 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
             if (typeof ref === 'function') {
               ref(node);
             } else if (ref) {
-              ref.current = node;
+              (ref as React.MutableRefObject<HTMLTextAreaElement | null>).current =
+                node;
             }
             textareaRef.current = node;
           }}
@@ -411,10 +412,13 @@ const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
       
       if (files) {
         for (let i = 0; i < files.length; i++) {
-          const error = validateFile(files[i]);
-          if (error) {
-            setFileError(error);
-            return;
+          const file = files.item(i);
+          if (file) {
+            const error = validateFile(file);
+            if (error) {
+              setFileError(error);
+              return;
+            }
           }
         }
       }
@@ -461,7 +465,8 @@ const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
                 if (typeof ref === 'function') {
                   ref(node);
                 } else if (ref) {
-                  ref.current = node;
+                  (ref as React.MutableRefObject<HTMLInputElement | null>).current =
+                    node;
                 }
                 inputRef.current = node;
               }}
@@ -470,7 +475,7 @@ const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
               accept={accept}
               multiple={multiple}
               onChange={(e) => handleFileChange(e.target.files)}
-              {...props}
+              {...(props as Omit<InputProps, "size">)}
             />
             <div className="space-y-2">
               <div className="text-muted-foreground">

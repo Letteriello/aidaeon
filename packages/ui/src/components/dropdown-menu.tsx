@@ -299,9 +299,9 @@ const DropdownMenuWithHeader = ({
               return (
                 <DropdownMenuCheckboxItem
                   key={key}
-                  checked={item.checked}
+                  checked={item.checked ?? false}
                   onCheckedChange={() => item.onClick?.()}
-                  disabled={item.disabled}
+                  disabled={item.disabled ?? false}
                 >
                   {item.label}
                 </DropdownMenuCheckboxItem>
@@ -311,7 +311,7 @@ const DropdownMenuWithHeader = ({
                 <DropdownMenuRadioItem
                   key={key}
                   value={item.value || ''}
-                  disabled={item.disabled}
+                  disabled={item.disabled ?? false}
                 >
                   {item.label}
                 </DropdownMenuRadioItem>
@@ -321,10 +321,10 @@ const DropdownMenuWithHeader = ({
                 <DropdownMenuItemWithIcon
                   key={key}
                   icon={item.icon}
-                  shortcut={item.shortcut}
-                  destructive={item.destructive}
+                  shortcut={item.shortcut ?? ""}
+                  destructive={item.destructive ?? false}
                   onClick={item.onClick}
-                  disabled={item.disabled}
+                  disabled={item.disabled ?? false}
                 >
                   {item.label}
                 </DropdownMenuItemWithIcon>
@@ -368,7 +368,7 @@ const ControlledDropdownMenu = ({
   modal = true,
 }: ControlledDropdownMenuProps) => {
   return (
-    <DropdownMenu open={open} onOpenChange={onOpenChange} modal={modal}>
+    <DropdownMenu open={open ?? false} onOpenChange={onOpenChange ?? (() => {})} modal={modal}>
       {children}
     </DropdownMenu>
   );

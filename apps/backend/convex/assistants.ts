@@ -21,7 +21,7 @@ export const getAssistants = query({
     limit: v.optional(v.number()),
   },
   handler: async (ctx, args) => {
-    let query = ctx.db.query("assistants");
+    let query = ctx.db.query("assistants") as any;
 
     if (args.status) {
       query = query.withIndex("by_status", (q) => q.eq("status", args.status!));
@@ -81,7 +81,7 @@ export const createAssistant = mutation({
     const assistantId = await ctx.db.insert("assistants", {
       name: args.name,
       description: args.description,
-      avatar: args.avatar,
+      ...(args.avatar ? { avatar: args.avatar } : {}),
       status: "inactive", // Começa inativo até ser configurado
       type: args.type,
       configuration: args.configuration,
