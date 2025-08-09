@@ -6,11 +6,9 @@ import { useTheme } from "next-themes";
 import { Button } from "@repo/ui";
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
 } from "@radix-ui/react-navigation-menu";
 import {
   Dialog,
@@ -21,27 +19,20 @@ import {
   DialogTrigger,
 } from "@radix-ui/react-dialog";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@radix-ui/react-dropdown-menu";
-import {
   Menu,
   Moon,
   Sun,
   Bot,
-  MessageSquare,
-  Settings,
-  User,
-  LogOut,
+  Phone,
+  Mail,
 } from "lucide-react";
 
 const navigation = [
-  { name: "Dashboard", href: "/dashboard" },
-  { name: "Assistentes", href: "/assistants" },
-  { name: "Conversas", href: "/conversations" },
-  { name: "Configurações", href: "/settings" },
+  { name: "Home", href: "/" },
+  { name: "Serviços", href: "/servicos" },
+  { name: "Sobre", href: "/sobre" },
+  { name: "Planos", href: "/planos" },
+  { name: "Contato", href: "/contato" },
 ];
 
 export function Header() {
@@ -74,6 +65,25 @@ export function Header() {
 
         {/* Right Side Actions */}
         <div className="flex items-center space-x-4">
+          {/* Contact Info - Hidden on mobile */}
+          <div className="hidden lg:flex items-center space-x-4 text-sm text-muted-foreground">
+            <div className="flex items-center space-x-1">
+              <Phone className="h-4 w-4" />
+              <span>(11) 99999-9999</span>
+            </div>
+            <div className="flex items-center space-x-1">
+              <Mail className="h-4 w-4" />
+              <span>contato@aidaeon.com</span>
+            </div>
+          </div>
+
+          {/* CTA Button */}
+          <Link href="/contato">
+            <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+              Solicitar Orçamento
+            </Button>
+          </Link>
+
           {/* Theme Toggle */}
           <Button
             variant="ghost"
@@ -84,29 +94,6 @@ export function Header() {
             <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
             <span className="sr-only">Alternar tema</span>
           </Button>
-
-          {/* User Menu */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm">
-                <User className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem>
-                <User className="mr-2 h-4 w-4" />
-                <span>Perfil</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Settings className="mr-2 h-4 w-4" />
-                <span>Configurações</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <LogOut className="mr-2 h-4 w-4" />
-                <span>Sair</span>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
 
           {/* Mobile Menu */}
           <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -119,7 +106,7 @@ export function Header() {
               <DialogHeader>
                 <DialogTitle>Menu</DialogTitle>
                 <DialogDescription>
-                  Navegue pelas funcionalidades da plataforma
+                  Navegue pelo nosso site e conheça nossos serviços
                 </DialogDescription>
               </DialogHeader>
               <div className="mt-6 space-y-4">
