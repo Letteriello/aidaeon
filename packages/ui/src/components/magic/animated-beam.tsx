@@ -52,11 +52,11 @@ export const AnimatedBeam = forwardRef<SVGSVGElement, AnimatedBeamProps>(
 
     React.useEffect(() => {
       if (containerRef.current && fromRef.current && toRef.current) {
-        const resizeObserver = new ResizeObserver((entries) => {
+        const resizeObserver = new ResizeObserver(() => {
           // Trigger re-render when container resizes
           if (svgRef.current) {
             svgRef.current.style.display = "none";
-            svgRef.current.offsetHeight; // Trigger reflow
+            svgRef.current.getBoundingClientRect(); // Trigger reflow
             svgRef.current.style.display = "block";
           }
         });
@@ -64,6 +64,7 @@ export const AnimatedBeam = forwardRef<SVGSVGElement, AnimatedBeamProps>(
         resizeObserver.observe(containerRef.current);
         return () => resizeObserver.disconnect();
       }
+      return undefined;
     }, [containerRef, fromRef, toRef]);
 
     React.useEffect(() => {

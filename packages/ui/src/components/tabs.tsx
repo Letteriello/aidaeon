@@ -78,8 +78,13 @@ const tabsContentVariants = cva(
 );
 
 export interface TabsProps
-  extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.Root>,
-    VariantProps<typeof tabsListVariants> {}
+  extends Omit<
+      React.ComponentPropsWithoutRef<typeof TabsPrimitive.Root>,
+      "orientation" | "value"
+    >,
+    VariantProps<typeof tabsListVariants> {
+  value?: string;
+}
 
 const Tabs = TabsPrimitive.Root;
 
@@ -172,7 +177,7 @@ export interface AdvancedTabsProps {
   onTabClose?: (tabId: string) => void;
   variant?: VariantProps<typeof tabsListVariants>['variant'];
   size?: VariantProps<typeof tabsListVariants>['size'];
-  orientation?: VariantProps<typeof tabsListVariants>['orientation'];
+  orientation?: Exclude<VariantProps<typeof tabsListVariants>['orientation'], null>;
   contentVariant?: VariantProps<typeof tabsContentVariants>['variant'];
   className?: string;
   listClassName?: string;
@@ -193,31 +198,30 @@ const AdvancedTabs = ({
   listClassName,
   contentClassName,
 }: AdvancedTabsProps) => {
-  const handleTabClose = (tabId: string) => {
-    onTabClose?.(tabId);
-    // Se a tab ativa foi fechada, muda para a primeira disponível
-    if (value === tabId || defaultValue === tabId) {
-      const remainingTabs = tabs.filter(tab => tab.id !== tabId);
-      if (remainingTabs.length > 0) {
-        onValueChange?.(remainingTabs[0].id);
+    const handleTabClose = (tabId: string) => {
+      onTabClose?.(tabId);
+      // Se a tab ativa foi fechada, muda para a primeira disponível
+      if (value === tabId || defaultValue === tabId) {
+        const remainingTabs = tabs.filter(tab => tab.id !== tabId);
+        if (remainingTabs.length > 0) {
+          onValueChange?.(remainingTabs[0]!.id);
+        }
       }
-    }
-  };
+    };
 
   return (
     <Tabs
-      value={value}
-      defaultValue={defaultValue}
-      onValueChange={onValueChange}
-      orientation={orientation}
+      {...(value ? { value } : { defaultValue })}
+      onValueChange={onValueChange ?? (() => {})}
+      orientation={orientation ?? undefined}
       className={className}
     >
-      <TabsList
-        variant={variant}
-        size={size}
-        orientation={orientation}
-        className={listClassName}
-      >
+        <TabsList
+          variant={variant}
+          size={size}
+          orientation={orientation ?? undefined}
+          className={listClassName}
+        >
         {tabs.map((tab) => (
           <TabsTrigger
             key={tab.id}
@@ -226,7 +230,7 @@ const AdvancedTabs = ({
             size={size}
             icon={tab.icon}
             badge={tab.badge}
-            closable={tab.closable}
+            closable={tab.closable ?? false}
             onClose={() => handleTabClose(tab.id)}
             disabled={tab.disabled}
           >
@@ -299,9 +303,9 @@ export function useTabs(initialTabs: AdvancedTabsProps['tabs']) {
     setTabs(prev => {
       const newTabs = prev.filter(tab => tab.id !== tabId);
       // Se a tab ativa foi removida, muda para a primeira disponível
-      if (activeTab === tabId && newTabs.length > 0) {
-        setActiveTab(newTabs[0].id);
-      }
+        if (activeTab === tabId && newTabs.length > 0) {
+          setActiveTab(newTabs[0]!.id);
+        }
       return newTabs;
     });
   }, [activeTab]);
@@ -315,8 +319,10 @@ export function useTabs(initialTabs: AdvancedTabsProps['tabs']) {
   const moveTab = React.useCallback((fromIndex: number, toIndex: number) => {
     setTabs(prev => {
       const newTabs = [...prev];
-      const [movedTab] = newTabs.splice(fromIndex, 1);
-      newTabs.splice(toIndex, 0, movedTab);
+        const [movedTab] = newTabs.splice(fromIndex, 1);
+        if (movedTab) {
+          newTabs.splice(toIndex, 0, movedTab);
+        }
       return newTabs;
     });
   }, []);

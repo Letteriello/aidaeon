@@ -165,7 +165,7 @@ const ConfirmModal = ({
   loading = false,
 }: ConfirmModalProps) => {
   return (
-    <Modal open={open} onOpenChange={onOpenChange}>
+    <Modal open={open ?? false} onOpenChange={onOpenChange ?? (() => {})}>
       <ModalContent variant={variant} size="sm">
         <ModalHeader>
           <ModalTitle>{title}</ModalTitle>
