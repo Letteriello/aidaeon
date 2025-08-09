@@ -1,34 +1,12 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": [
-    "**/.env.*local",
-    ".env",
-    "turbo.json",
-    "tsconfig.json",
-    "tailwind.config.*"
-  ],
-  "globalEnv": [
-    "NODE_ENV",
-    "CONVEX_DEPLOYMENT",
-    "CONVEX_URL",
-    "NEXT_TELEMETRY_DISABLED"
-  ],
-  "pipeline": {
+  "globalDependencies": ["**/.env.*local", ".env", "turbo.json", "tsconfig.json", "tailwind.config.*"],
+  "globalEnv": ["NODE_ENV", "CONVEX_DEPLOYMENT", "CONVEX_URL", "NEXT_TELEMETRY_DISABLED"],
+  "tasks": {
     "build": {
       "dependsOn": ["^build", "type-check"],
-      "outputs": [
-        ".next/**",
-        "!.next/cache/**",
-        "dist/**",
-        "build/**",
-        "out/**"
-      ],
-      "env": [
-        "NODE_ENV",
-        "CONVEX_DEPLOYMENT",
-        "CONVEX_URL",
-        "NEXT_TELEMETRY_DISABLED"
-      ]
+      "outputs": [".next/**", "!.next/cache/**", "dist/**", "build/**", "out/**"],
+      "env": ["NODE_ENV", "CONVEX_DEPLOYMENT", "CONVEX_URL", "NEXT_TELEMETRY_DISABLED"]
     },
     "lint": {
       "dependsOn": ["^lint"],
@@ -43,17 +21,11 @@
     "dev": {
       "cache": false,
       "persistent": true,
-      "env": [
-        "NODE_ENV",
-        "CONVEX_DEPLOYMENT",
-        "CONVEX_URL"
-      ]
+      "env": ["NODE_ENV", "CONVEX_DEPLOYMENT", "CONVEX_URL"]
     },
     "test": {
       "dependsOn": ["^build"],
-      "outputs": [
-        "coverage/**"
-      ],
+      "outputs": ["coverage/**"],
       "inputs": [
         "src/**/*.{ts,tsx,js,jsx}",
         "test/**/*.{ts,tsx,js,jsx}",
@@ -68,11 +40,7 @@
     "type-check": {
       "dependsOn": ["^type-check"],
       "outputs": [],
-      "inputs": [
-        "src/**/*.{ts,tsx}",
-        "**/*.d.ts",
-        "tsconfig.json"
-      ]
+      "inputs": ["src/**/*.{ts,tsx}", "**/*.d.ts", "tsconfig.json"]
     },
     "clean": {
       "cache": false,
