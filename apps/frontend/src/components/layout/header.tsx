@@ -1,38 +1,33 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import Link from "next/link";
-import { useTheme } from "next-themes";
-import { Button } from "@repo/ui";
+import { useState } from 'react';
+
+import { useTheme } from 'next-themes';
+import Link from 'next/link';
+
 import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-} from "@radix-ui/react-navigation-menu";
+} from '@radix-ui/react-navigation-menu';
+import { Button } from '@repo/ui';
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@radix-ui/react-dialog";
-import {
-  Menu,
-  Moon,
-  Sun,
-  Bot,
-  Phone,
-  Mail,
-} from "lucide-react";
+  Drawer,
+  DrawerContent,
+  DrawerDescription,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from '@repo/ui/components/overlay';
+import { Bot, Mail, Menu, Moon, Phone, Sun } from 'lucide-react';
 
 const navigation = [
-  { name: "Home", href: "/" },
-  { name: "Serviços", href: "/servicos" },
-  { name: "Sobre", href: "/sobre" },
-  { name: "Planos", href: "/planos" },
-  { name: "Contato", href: "/contato" },
+  { name: 'Home', href: '/' },
+  { name: 'Serviços', href: '/servicos' },
+  { name: 'Sobre', href: '/sobre' },
+  { name: 'Planos', href: '/planos' },
+  { name: 'Contato', href: '/contato' },
 ];
 
 export function Header() {
@@ -40,21 +35,21 @@ export function Header() {
   const { setTheme, theme } = useTheme();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur">
       <div className="container flex h-16 items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2">
-          <Bot className="h-8 w-8 text-primary" />
+          <Bot className="text-primary h-8 w-8" />
           <span className="text-xl font-bold">AidaEon</span>
         </Link>
 
         {/* Desktop Navigation */}
         <NavigationMenu className="hidden md:flex">
           <NavigationMenuList className="flex space-x-6">
-            {navigation.map((item) => (
+            {navigation.map(item => (
               <NavigationMenuItem key={item.name}>
                 <Link href={item.href} legacyBehavior passHref>
-                  <NavigationMenuLink className="text-sm font-medium transition-colors hover:text-primary">
+                  <NavigationMenuLink className="hover:text-primary text-sm font-medium transition-colors">
                     {item.name}
                   </NavigationMenuLink>
                 </Link>
@@ -66,7 +61,7 @@ export function Header() {
         {/* Right Side Actions */}
         <div className="flex items-center space-x-4">
           {/* Contact Info - Hidden on mobile */}
-          <div className="hidden lg:flex items-center space-x-4 text-sm text-muted-foreground">
+          <div className="text-muted-foreground hidden items-center space-x-4 text-sm lg:flex">
             <div className="flex items-center space-x-1">
               <Phone className="h-4 w-4" />
               <span>(11) 99999-9999</span>
@@ -79,7 +74,7 @@ export function Header() {
 
           {/* CTA Button */}
           <Link href="/contato">
-            <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+            <Button className="bg-blue-600 text-white hover:bg-blue-700">
               Solicitar Orçamento
             </Button>
           </Link>
@@ -88,7 +83,7 @@ export function Header() {
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
           >
             <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
             <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
@@ -96,33 +91,33 @@ export function Header() {
           </Button>
 
           {/* Mobile Menu */}
-          <Dialog open={isOpen} onOpenChange={setIsOpen}>
-            <DialogTrigger asChild className="md:hidden">
+          <Drawer open={isOpen} onOpenChange={setIsOpen}>
+            <DrawerTrigger asChild className="md:hidden">
               <Button variant="ghost" size="sm">
                 <Menu className="h-4 w-4" />
               </Button>
-            </DialogTrigger>
-            <DialogContent side="right">
-              <DialogHeader>
-                <DialogTitle>Menu</DialogTitle>
-                <DialogDescription>
+            </DrawerTrigger>
+            <DrawerContent side="right">
+              <DrawerHeader>
+                <DrawerTitle>Menu</DrawerTitle>
+                <DrawerDescription>
                   Navegue pelo nosso site e conheça nossos serviços
-                </DialogDescription>
-              </DialogHeader>
+                </DrawerDescription>
+              </DrawerHeader>
               <div className="mt-6 space-y-4">
-                {navigation.map((item) => (
+                {navigation.map(item => (
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="block text-sm font-medium transition-colors hover:text-primary"
+                    className="hover:text-primary block text-sm font-medium transition-colors"
                     onClick={() => setIsOpen(false)}
                   >
                     {item.name}
                   </Link>
                 ))}
               </div>
-            </DialogContent>
-          </Dialog>
+            </DrawerContent>
+          </Drawer>
         </div>
       </div>
     </header>

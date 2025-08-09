@@ -1,78 +1,83 @@
-"use client";
+/* eslint-disable import/order */
+'use client';
 
-import * as React from "react";
-import * as TabsPrimitive from "@radix-ui/react-tabs";
-import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "../lib/utils";
-import { X } from "lucide-react";
+import * as React from 'react';
+
+import * as TabsPrimitive from '@radix-ui/react-tabs';
+import { type VariantProps, cva } from 'class-variance-authority';
+import { X } from 'lucide-react';
+
+import { cn } from '../lib/utils';
+
+/* eslint-disable import/order */
 
 const tabsListVariants = cva(
-  "inline-flex items-center justify-center rounded-md bg-muted p-1 text-muted-foreground",
+  'bg-muted text-muted-foreground inline-flex items-center justify-center rounded-md p-1',
   {
     variants: {
       variant: {
-        default: "bg-muted",
-        pills: "bg-transparent gap-2",
-        underline: "bg-transparent border-b border-border",
-        bordered: "border border-border bg-background",
+        default: 'bg-muted',
+        pills: 'gap-2 bg-transparent',
+        underline: 'border-border border-b bg-transparent',
+        bordered: 'border-border bg-background border',
       },
       size: {
-        sm: "h-8 p-0.5",
-        default: "h-10 p-1",
-        lg: "h-12 p-1.5",
+        sm: 'h-8 p-0.5',
+        default: 'h-10 p-1',
+        lg: 'h-12 p-1.5',
       },
       orientation: {
-        horizontal: "flex-row",
-        vertical: "flex-col h-auto w-auto",
+        horizontal: 'flex-row',
+        vertical: 'h-auto w-auto flex-col',
       },
     },
     defaultVariants: {
-      variant: "default",
-      size: "default",
-      orientation: "horizontal",
+      variant: 'default',
+      size: 'default',
+      orientation: 'horizontal',
     },
   }
 );
 
 const tabsTriggerVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  'ring-offset-background focus-visible:ring-ring inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
         default:
-          "data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm",
+          'data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm',
         pills:
-          "rounded-full data-[state=active]:bg-primary data-[state=active]:text-primary-foreground",
+          'data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-full',
         underline:
-          "rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent",
+          'data-[state=active]:border-primary rounded-none border-b-2 border-transparent data-[state=active]:bg-transparent',
         bordered:
-          "data-[state=active]:bg-primary data-[state=active]:text-primary-foreground",
+          'data-[state=active]:bg-primary data-[state=active]:text-primary-foreground',
       },
       size: {
-        sm: "px-2 py-1 text-xs",
-        default: "px-3 py-1.5 text-sm",
-        lg: "px-4 py-2 text-base",
+        sm: 'px-2 py-1 text-xs',
+        default: 'px-3 py-1.5 text-sm',
+        lg: 'px-4 py-2 text-base',
       },
     },
     defaultVariants: {
-      variant: "default",
-      size: "default",
+      variant: 'default',
+      size: 'default',
     },
   }
 );
 
 const tabsContentVariants = cva(
-  "mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+  'ring-offset-background focus-visible:ring-ring mt-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
   {
     variants: {
       variant: {
-        default: "",
-        card: "rounded-lg border bg-card p-6",
-        padded: "p-4",
+        default: '',
+        card: 'bg-card rounded-lg border p-6',
+        padded: 'p-4',
       },
     },
     defaultVariants: {
-      variant: "default",
+      variant: 'default',
     },
   }
 );
@@ -80,7 +85,7 @@ const tabsContentVariants = cva(
 export interface TabsProps
   extends Omit<
       React.ComponentPropsWithoutRef<typeof TabsPrimitive.Root>,
-      "orientation" | "value"
+      'orientation' | 'value'
     >,
     VariantProps<typeof tabsListVariants> {
   value?: string;
@@ -116,32 +121,47 @@ export interface TabsTriggerProps
 const TabsTrigger = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Trigger>,
   TabsTriggerProps
->(({ className, variant, size, icon, badge, closable, onClose, children, ...props }, ref) => (
-  <TabsPrimitive.Trigger
-    ref={ref}
-    className={cn(tabsTriggerVariants({ variant, size }), "group", className)}
-    {...props}
-  >
-    <div className="flex items-center gap-2">
-      {icon && <span className="flex items-center">{icon}</span>}
-      <span>{children}</span>
-      {badge && <span className="flex items-center">{badge}</span>}
-      {closable && (
-        <button
-          type="button"
-          className="ml-1 flex h-4 w-4 items-center justify-center rounded-sm opacity-60 hover:opacity-100 focus:outline-none focus:ring-1 focus:ring-ring"
-          onClick={(e) => {
-            e.stopPropagation();
-            onClose?.();
-          }}
-          aria-label="Close tab"
-        >
-          <X className="h-3 w-3" />
-        </button>
-      )}
-    </div>
-  </TabsPrimitive.Trigger>
-));
+>(
+  (
+    {
+      className,
+      variant,
+      size,
+      icon,
+      badge,
+      closable,
+      onClose,
+      children,
+      ...props
+    },
+    ref
+  ) => (
+    <TabsPrimitive.Trigger
+      ref={ref}
+      className={cn(tabsTriggerVariants({ variant, size }), 'group', className)}
+      {...props}
+    >
+      <div className="flex items-center gap-2">
+        {icon && <span className="flex items-center">{icon}</span>}
+        <span>{children}</span>
+        {badge && <span className="flex items-center">{badge}</span>}
+        {closable && (
+          <button
+            type="button"
+            className="focus:ring-ring ml-1 flex h-4 w-4 items-center justify-center rounded-sm opacity-60 hover:opacity-100 focus:outline-none focus:ring-1"
+            onClick={e => {
+              e.stopPropagation();
+              onClose?.();
+            }}
+            aria-label="Close tab"
+          >
+            <X className="h-3 w-3" />
+          </button>
+        )}
+      </div>
+    </TabsPrimitive.Trigger>
+  )
+);
 TabsTrigger.displayName = TabsPrimitive.Trigger.displayName;
 
 export interface TabsContentProps
@@ -177,7 +197,10 @@ export interface AdvancedTabsProps {
   onTabClose?: (tabId: string) => void;
   variant?: VariantProps<typeof tabsListVariants>['variant'];
   size?: VariantProps<typeof tabsListVariants>['size'];
-  orientation?: Exclude<VariantProps<typeof tabsListVariants>['orientation'], null>;
+  orientation?: Exclude<
+    VariantProps<typeof tabsListVariants>['orientation'],
+    null
+  >;
   contentVariant?: VariantProps<typeof tabsContentVariants>['variant'];
   className?: string;
   listClassName?: string;
@@ -190,39 +213,43 @@ const AdvancedTabs = ({
   value,
   onValueChange,
   onTabClose,
-  variant = "default",
-  size = "default",
-  orientation = "horizontal",
-  contentVariant = "default",
+  variant = 'default',
+  size = 'default',
+  orientation = 'horizontal',
+  contentVariant = 'default',
   className,
   listClassName,
   contentClassName,
 }: AdvancedTabsProps) => {
-    const handleTabClose = (tabId: string) => {
-      onTabClose?.(tabId);
-      // Se a tab ativa foi fechada, muda para a primeira disponível
-      if (value === tabId || defaultValue === tabId) {
-        const remainingTabs = tabs.filter(tab => tab.id !== tabId);
-        if (remainingTabs.length > 0) {
-          onValueChange?.(remainingTabs[0]!.id);
-        }
+  const handleTabClose = (tabId: string) => {
+    onTabClose?.(tabId);
+    // Se a tab ativa foi fechada, muda para a primeira disponível
+    if (value === tabId || defaultValue === tabId) {
+      const remainingTabs = tabs.filter(tab => tab.id !== tabId);
+      if (remainingTabs.length > 0) {
+        onValueChange?.(remainingTabs[0]!.id);
       }
-    };
+    }
+  };
 
   return (
     <Tabs
-      {...(value ? { value } : { defaultValue })}
+      {...(value !== undefined
+        ? { value }
+        : defaultValue !== undefined
+          ? { defaultValue }
+          : {})}
       onValueChange={onValueChange ?? (() => {})}
-      orientation={orientation ?? undefined}
+      orientation={orientation}
       className={className}
     >
-        <TabsList
-          variant={variant}
-          size={size}
-          orientation={orientation ?? undefined}
-          className={listClassName}
-        >
-        {tabs.map((tab) => (
+      <TabsList
+        variant={variant}
+        size={size}
+        orientation={orientation}
+        className={listClassName}
+      >
+        {tabs.map(tab => (
           <TabsTrigger
             key={tab.id}
             value={tab.id}
@@ -238,7 +265,7 @@ const AdvancedTabs = ({
           </TabsTrigger>
         ))}
       </TabsList>
-      {tabs.map((tab) => (
+      {tabs.map(tab => (
         <TabsContent
           key={tab.id}
           value={tab.id}
@@ -259,7 +286,7 @@ export interface LazyTabsProps extends AdvancedTabsProps {
 
 const LazyTabs = ({ lazy = true, tabs, ...props }: LazyTabsProps) => {
   const [loadedTabs, setLoadedTabs] = React.useState<Set<string>>(new Set());
-  const currentValue = props.value || props.defaultValue;
+  const currentValue = props.value ?? props.defaultValue;
 
   React.useEffect(() => {
     if (currentValue && !loadedTabs.has(currentValue)) {
@@ -299,30 +326,36 @@ export function useTabs(initialTabs: AdvancedTabsProps['tabs']) {
     setTabs(prev => [...prev, tab]);
   }, []);
 
-  const removeTab = React.useCallback((tabId: string) => {
-    setTabs(prev => {
-      const newTabs = prev.filter(tab => tab.id !== tabId);
-      // Se a tab ativa foi removida, muda para a primeira disponível
+  const removeTab = React.useCallback(
+    (tabId: string) => {
+      setTabs(prev => {
+        const newTabs = prev.filter(tab => tab.id !== tabId);
+        // Se a tab ativa foi removida, muda para a primeira disponível
         if (activeTab === tabId && newTabs.length > 0) {
           setActiveTab(newTabs[0]!.id);
         }
-      return newTabs;
-    });
-  }, [activeTab]);
+        return newTabs;
+      });
+    },
+    [activeTab]
+  );
 
-  const updateTab = React.useCallback((tabId: string, updates: Partial<AdvancedTabsProps['tabs'][0]>) => {
-    setTabs(prev => prev.map(tab => 
-      tab.id === tabId ? { ...tab, ...updates } : tab
-    ));
-  }, []);
+  const updateTab = React.useCallback(
+    (tabId: string, updates: Partial<AdvancedTabsProps['tabs'][0]>) => {
+      setTabs(prev =>
+        prev.map(tab => (tab.id === tabId ? { ...tab, ...updates } : tab))
+      );
+    },
+    []
+  );
 
   const moveTab = React.useCallback((fromIndex: number, toIndex: number) => {
     setTabs(prev => {
       const newTabs = [...prev];
-        const [movedTab] = newTabs.splice(fromIndex, 1);
-        if (movedTab) {
-          newTabs.splice(toIndex, 0, movedTab);
-        }
+      const [movedTab] = newTabs.splice(fromIndex, 1);
+      if (movedTab) {
+        newTabs.splice(toIndex, 0, movedTab);
+      }
       return newTabs;
     });
   }, []);
@@ -343,7 +376,10 @@ export interface DraggableTabsProps extends AdvancedTabsProps {
   onTabReorder?: (fromIndex: number, toIndex: number) => void;
 }
 
-const DraggableTabs = ({ onTabReorder, ...props }: DraggableTabsProps) => {
+const DraggableTabs = ({
+  onTabReorder: _onTabReorder,
+  ...props
+}: DraggableTabsProps) => {
   // Implementação básica - pode ser expandida com react-dnd ou similar
   return <AdvancedTabs {...props} />;
 };

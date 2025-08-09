@@ -76,29 +76,14 @@
     ".next",
     ".turbo",
     "coverage",
+    "**/dist",
+    "**/build",
     "**/*.test.ts",
     "**/*.test.tsx",
     "**/*.spec.ts",
     "**/*.spec.tsx",
     "**/*.stories.ts",
     "**/*.stories.tsx"
-  ],
-  "references": [
-    {
-      "path": "./apps/frontend"
-    },
-    {
-      "path": "./apps/backend"
-    },
-    {
-      "path": "./packages/ui"
-    },
-    {
-      "path": "./packages/eslint-config"
-    },
-    {
-      "path": "./packages/typescript-config"
-    }
   ],
   "ts-node": {
     "esm": true,

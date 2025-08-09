@@ -6,14 +6,10 @@ const project = resolve(process.cwd(), 'tsconfig.json');
 module.exports = {
   extends: [
     'eslint:recommended',
-    '@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/recommended',
     'eslint-config-prettier',
   ],
-  plugins: [
-    '@typescript-eslint',
-    'import',
-    'unused-imports',
-  ],
+  plugins: ['@typescript-eslint', 'import', 'unused-imports'],
   globals: {
     React: true,
     JSX: true,
@@ -62,7 +58,7 @@ module.exports = {
     'object-shorthand': 'error',
     'prefer-template': 'error',
     'no-unused-vars': 'off',
-    
+
     // TypeScript rules
     '@typescript-eslint/no-unused-vars': [
       'error',
@@ -83,7 +79,7 @@ module.exports = {
       },
     ],
     '@typescript-eslint/no-import-type-side-effects': 'error',
-    
+
     // Import rules
     'import/order': [
       'error',
@@ -105,7 +101,7 @@ module.exports = {
     ],
     'import/no-duplicates': 'error',
     'import/no-unresolved': 'error',
-    
+
     // Unused imports
     'unused-imports/no-unused-imports': 'error',
     'unused-imports/no-unused-vars': [

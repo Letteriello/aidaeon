@@ -1,75 +1,85 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { cn } from "@repo/ui";
-import { Button } from "@repo/ui";
+import { useState } from 'react';
+
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+
+import { cn } from '@repo/ui';
+import { Button } from '@repo/ui';
 import {
-  Bot,
-  MessageSquare,
-  Settings,
   BarChart3,
-  Users,
-  Zap,
-  HelpCircle,
+  Bot,
   ChevronLeft,
   ChevronRight,
+  HelpCircle,
+  MessageSquare,
   Plus,
-} from "lucide-react";
+  Settings,
+  Users,
+  Zap,
+} from 'lucide-react';
 
 const navigation = [
   {
-    name: "Dashboard",
-    href: "/dashboard",
+    name: 'Dashboard',
+    href: '/dashboard',
     icon: BarChart3,
-    description: "Visão geral da plataforma",
+    description: 'Visão geral da plataforma',
   },
   {
-    name: "Assistentes",
-    href: "/assistants",
+    name: 'Assistentes',
+    href: '/assistants',
     icon: Bot,
-    description: "Gerencie seus assistentes de IA",
+    description: 'Gerencie seus assistentes de IA',
   },
   {
-    name: "Conversas",
-    href: "/conversations",
+    name: 'Conversas',
+    href: '/conversations',
     icon: MessageSquare,
-    description: "Histórico de conversas",
+    description: 'Histórico de conversas',
   },
   {
-    name: "Usuários",
-    href: "/users",
+    name: 'Usuários',
+    href: '/users',
     icon: Users,
-    description: "Gerenciar usuários",
+    description: 'Gerenciar usuários',
   },
   {
-    name: "Automações",
-    href: "/automations",
+    name: 'Automações',
+    href: '/automations',
     icon: Zap,
-    description: "Fluxos automatizados",
+    description: 'Fluxos automatizados',
   },
   {
-    name: "Configurações",
-    href: "/settings",
+    name: 'Configurações',
+    href: '/settings',
     icon: Settings,
-    description: "Configurações da conta",
+    description: 'Configurações da conta',
   },
 ];
 
 interface SidebarProps {
   className?: string;
+  collapsed?: boolean;
+  onCollapsedChange?: (collapsed: boolean) => void;
 }
 
-export function Sidebar({ className }: SidebarProps) {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+export function Sidebar({
+  className,
+  collapsed,
+  onCollapsedChange,
+}: SidebarProps) {
+  const [internalCollapsed, setInternalCollapsed] = useState(false);
+  const isCollapsed = collapsed ?? internalCollapsed;
+  const setIsCollapsed = onCollapsedChange ?? setInternalCollapsed;
   const pathname = usePathname();
 
   return (
     <div
       className={cn(
-        "flex h-full flex-col border-r bg-background transition-all duration-300",
-        isCollapsed ? "w-16" : "w-64",
+        'bg-background flex h-full flex-col border-r transition-all duration-300',
+        isCollapsed ? 'w-16' : 'w-64',
         className
       )}
     >
@@ -77,7 +87,7 @@ export function Sidebar({ className }: SidebarProps) {
       <div className="flex h-16 items-center justify-between border-b px-4">
         {!isCollapsed && (
           <Link href="/" className="flex items-center space-x-2">
-            <Bot className="h-6 w-6 text-primary" />
+            <Bot className="text-primary h-6 w-6" />
             <span className="text-lg font-semibold">AidaEon</span>
           </Link>
         )}
@@ -97,7 +107,7 @@ export function Sidebar({ className }: SidebarProps) {
 
       {/* Quick Action */}
       <div className="p-4">
-        <Button className="w-full" size={isCollapsed ? "sm" : "default"}>
+        <Button className="w-full" size={isCollapsed ? 'sm' : 'default'}>
           <Plus className="h-4 w-4" />
           {!isCollapsed && <span className="ml-2">Novo Assistente</span>}
         </Button>
@@ -105,17 +115,17 @@ export function Sidebar({ className }: SidebarProps) {
 
       {/* Navigation */}
       <nav className="flex-1 space-y-1 p-4">
-        {navigation.map((item) => {
+        {navigation.map(item => {
           const isActive = pathname === item.href;
           return (
             <Link
               key={item.name}
               href={item.href}
               className={cn(
-                "flex items-center rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+                'flex items-center rounded-lg px-3 py-2 text-sm font-medium transition-colors',
                 isActive
-                  ? "bg-primary text-primary-foreground"
-                  : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                  ? 'bg-primary text-primary-foreground'
+                  : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
               )}
               title={isCollapsed ? item.name : undefined}
             >
@@ -123,7 +133,7 @@ export function Sidebar({ className }: SidebarProps) {
               {!isCollapsed && (
                 <div className="ml-3 flex-1">
                   <div className="text-sm font-medium">{item.name}</div>
-                  <div className="text-xs text-muted-foreground">
+                  <div className="text-muted-foreground text-xs">
                     {item.description}
                   </div>
                 </div>
@@ -138,9 +148,9 @@ export function Sidebar({ className }: SidebarProps) {
         <Link
           href="/help"
           className={cn(
-            "flex items-center rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+            'text-muted-foreground hover:bg-accent hover:text-accent-foreground flex items-center rounded-lg px-3 py-2 text-sm font-medium transition-colors'
           )}
-          title={isCollapsed ? "Ajuda" : undefined}
+          title={isCollapsed ? 'Ajuda' : undefined}
         >
           <HelpCircle className="h-4 w-4 flex-shrink-0" />
           {!isCollapsed && <span className="ml-3">Ajuda & Suporte</span>}
