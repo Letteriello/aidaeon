@@ -63,7 +63,7 @@
     "eslint": "^9.14.0",
     "postcss": "^8.4.32",
     "react": "19.1.0",
-    "react-dom": "19.1.0",
+    "react-dom": "19.1.1",
     "tailwindcss": "^3.4.0",
     "typescript": "^5.3.3"
   },
