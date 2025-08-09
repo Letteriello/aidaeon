@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const { resolve } = require('node:path');
 
 const project = resolve(process.cwd(), 'tsconfig.json');
@@ -9,7 +10,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'eslint-config-prettier',
   ],
-  plugins: ['@typescript-eslint', 'import', 'unused-imports'],
+  plugins: ['import', 'unused-imports'],
   globals: {
     React: true,
     JSX: true,

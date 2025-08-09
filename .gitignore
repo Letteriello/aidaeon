@@ -4,6 +4,9 @@ node_modules
 # output
 out
 dist
+build
+.next
+.turbo
 *.tgz
 
 # code coverage

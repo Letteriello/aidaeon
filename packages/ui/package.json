@@ -15,7 +15,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
-    "lint": "eslint src/",
+    "lint": "ESLINT_USE_FLAT_CONFIG=false eslint src/",
     "lint:fix": "eslint src/ --fix",
     "type-check": "tsc --noEmit",
     "clean": "rm -rf node_modules .turbo dist",
@@ -60,7 +60,7 @@
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "autoprefixer": "^10.4.16",
-    "eslint": "^8.56.0",
+    "eslint": "^9.14.0",
     "postcss": "^8.4.32",
     "react": "19.1.0",
     "react-dom": "19.1.0",

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const { resolve } = require('node:path');
 
 const project = resolve(process.cwd(), 'tsconfig.json');
@@ -9,9 +10,7 @@ module.exports = {
     'next/core-web-vitals',
     'plugin:tailwindcss/recommended',
   ],
-  plugins: [
-    'tailwindcss',
-  ],
+  plugins: ['tailwindcss'],
   settings: {
     'import/resolver': {
       typescript: {
@@ -27,7 +26,7 @@ module.exports = {
     '@next/next/no-html-link-for-pages': 'off',
     '@next/next/no-img-element': 'warn',
     '@next/next/no-page-custom-font': 'warn',
-    
+
     // React rules
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
@@ -49,11 +48,11 @@ module.exports = {
     'react/no-unknown-property': 'error',
     'react/no-unsafe': 'warn',
     'react/require-render-return': 'error',
-    
+
     // React Hooks rules
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
-    
+
     // Tailwind CSS rules
     'tailwindcss/classnames-order': 'warn',
     'tailwindcss/enforces-negative-arbitrary-values': 'warn',
@@ -62,7 +61,7 @@ module.exports = {
     'tailwindcss/no-arbitrary-value': 'off',
     'tailwindcss/no-custom-classname': 'off',
     'tailwindcss/no-contradicting-classname': 'error',
-    
+
     // JSX a11y rules
     'jsx-a11y/alt-text': [
       'warn',
